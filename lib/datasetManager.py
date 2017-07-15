@@ -2,13 +2,13 @@ import os
 import pickle
 
 
-def get_dataset(dataset_path, nb_per_class, slice_size, val_ratio, test_ratio, mode):
+def get_dataset(slices_path, dataset_path, nb_per_class, slice_size, val_ratio, test_ratio, mode):
 
     dataset_name = str(nb_per_class) + str(slice_size)
 
     if not os.path.isfile(dataset_path + "train_x_" + dataset_name):
         print("Creating dataset ...")
-        create_dataset(dataset_path, nb_per_class, slice_size, val_ratio, test_ratio)
+        create_dataset(slices_path, dataset_path, nb_per_class, slice_size, val_ratio, test_ratio)
     else:
         print("Using existing dataset.")
 
@@ -31,9 +31,11 @@ def get_dataset(dataset_path, nb_per_class, slice_size, val_ratio, test_ratio, m
 
 
 
-def create_dataset(path, nb_per_class, slice_size, val_ratio, test_ratio):
+def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio, test_ratio):
     '''
     Chaly
+    input path es para imagenes, outputpath es para donde guardar el dataset
+
     Debes crear una funcion que utilizando path
     luego lee las imagenes, te puede servir os.listdir
 
