@@ -22,3 +22,14 @@ Take mp3 files directory and using __sox__ convert them into spectrogram maps.
 
 ##### convert_to_slices
 Take a spectrogram files directory and chop it on a desired pixel size.
+
+
+### datasetManager.py
+##### get_dataset
+Return a pickle file dataset or generate one.
+
+##### create_dataset
+Create a dataset with a specific size, ratio and image dimensions.
+
+It will be saved as a pickle with extension .p
+
