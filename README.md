@@ -17,15 +17,15 @@ Convert audio mp3 to png images of a chopped spectrogram.
 ## Lib directory
 Where all the important functions for data processing would be:
 ### audio2image.py
-##### convert_to_spectrogram
+##### convert_to_spectrogram *(Alexis)*
 Take mp3 files directory and using __sox__ convert them into spectrogram maps.
 
-##### convert_to_slices
+##### convert_to_slices *(Beckford)*
 Take a spectrogram files directory and chop it on a desired pixel size.
 
 
-### datasetManager.py
-##### get_dataset
+### datasetManager.py *(Chaly)*
+##### get_dataset 
 Return a pickle file dataset or generate one.
 
 ##### create_dataset
