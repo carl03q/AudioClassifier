@@ -32,6 +32,10 @@ def get_dataset(slices_path, dataset_path, nb_per_class, slice_size, val_ratio, 
 
 
 def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio, test_ratio):
+    
+    #codigo que trabajara con los directorios
+    #path variable en donde se asignara el path de las imaegenes
+    path = os.listdir(input_path)
     '''
     Chaly
     input path es para imagenes, outputpath es para donde guardar el dataset
@@ -103,4 +107,9 @@ def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio,
     pickle.dump(test_y, open("{}test_y_{}.p".format(datasetPath, datasetName), "wb"))
 
     '''
-    return
+    return path
+
+gg = create_dataset()
+print (gg)
+
+
