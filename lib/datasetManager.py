@@ -32,10 +32,6 @@ def get_dataset(slices_path, dataset_path, nb_per_class, slice_size, val_ratio, 
 
 
 def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio, test_ratio):
-    
-    #codigo que trabajara con los directorios
-    #path variable en donde se asignara el path de las imaegenes
-    path = os.listdir(input_path)
     '''
     Chaly
     input path es para imagenes, outputpath es para donde guardar el dataset
@@ -105,11 +101,16 @@ def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio,
     pickle.dump(validation_y, open("{}validation_y_{}.p".format(datasetPath, datasetName), "wb"))
     pickle.dump(test_X, open("{}test_X_{}.p".format(datasetPath, datasetName), "wb"))
     pickle.dump(test_y, open("{}test_y_{}.p".format(datasetPath, datasetName), "wb"))
-
-    '''
+'''
+    
+       #codigo que trabajara con los directorios
+    #path variable en donde se asignara el path de las imaegenes
+    path=[]
+    path= str(os.path.join(path,input_path))
+    list_dir = os.listdir(path)
+    for files in list_dir:
+        print (files)
+    
     return path
-
-gg = create_dataset()
-print (gg)
 
 
