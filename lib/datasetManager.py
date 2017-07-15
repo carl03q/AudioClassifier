@@ -49,7 +49,7 @@ def create_dataset(path, nb_per_class, slice_size, val_ratio, test_ratio):
 
     a Cada imagen debes hacerle un proceso
     1. .resize(slice_size, slice_size, resample=Image.ANTIALIAS)
-    2. normalizar -> dividir entre 255 -> img/255
+    2. normalizar -> dividir entre 255 -> img/255.0
 
     3. onehot encode (etiquetar las imagenes ->
     label = [0 for _ in range(len(cantidad de generos)]
