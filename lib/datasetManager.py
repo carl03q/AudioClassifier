@@ -4,9 +4,9 @@ import pickle
 
 def get_dataset(slices_path, dataset_path, nb_per_class, slice_size, val_ratio, test_ratio, mode):
 
-    dataset_name = str(nb_per_class) + str(slice_size)
+    dataset_name = str(nb_per_class) + "_" + str(slice_size)
 
-    if not os.path.isfile(dataset_path + "train_x_" + dataset_name):
+    if not os.path.isfile("{}train_X_{}.p".format(dataset_path, dataset_name)):
         print("Creating dataset ...")
         create_dataset(slices_path, dataset_path, nb_per_class, slice_size, val_ratio, test_ratio)
     else:
