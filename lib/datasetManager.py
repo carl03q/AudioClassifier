@@ -105,11 +105,13 @@ def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio,
     
        #codigo que trabajara con los directorios
     #path variable en donde se asignara el path de las imaegenes
-    path=[]
-    path= str(os.path.join(path,input_path))
-    list_dir = os.listdir(path)
-    for files in list_dir:
-        print (files)
+    genres = os.listdir(input_path)
+    
+    for genre in genres:
+        genre_dir = input_path + genre
+    
+    print(genre_dir)     
+    return (genres)
     
     return path
 
