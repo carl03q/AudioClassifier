@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser()
 
 # Opciones
 parser.add_argument("--dataset", help="Dataset path. Default is ./Data/Dataset/", default='./Data/Dataset/')
-parser.add_argument("--postfix", help="Dataset postfix. If not defined take first on dataset dir.", default='')
+parser.add_argument("--postfix", help="Dataset postfix. Default is '1000_128'.", default='1000_128')
 
 args = parser.parse_args()
 
@@ -18,11 +18,10 @@ postfix = args.postfix
 
 print("---- Configuration ----")
 print("Dataset path: {}".format(dataset_path))
+print("Postfix: {}".format(postfix))
 
-if not postfix:
-    files = [filename for filename in os.listdir(dataset_path) if filename.startswith("test_")]
-else:
-    files = ["test_X_"+postfix, "test_y_"+postfix]
+files = ["{}test_X_{}.p".format(dataset_path, postfix),
+         "{}test_y_{}.p".format(dataset_path, postfix)]
 
 if files:
     test_X = pickle.load(open(files[0], "rb"))
@@ -32,7 +31,9 @@ if files:
     model = load_model('music.h5')
     print("Weights loaded!")
     testAccuracy = model.evaluate(test_X, test_y)
-    print("Test accuracy: {}".format(testAccuracy[0]))
+
+    print("Test accuracy: %.2f %%" % (testAccuracy[1] * 100))
+
 
 else:
     print("Dataset not found.")
