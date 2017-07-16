@@ -1,2 +1,6 @@
 
 \.idea/
+
+lib/__pycache__/
+
+__pycache__/modelGenerator\.cpython-36\.pyc
