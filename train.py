@@ -4,6 +4,7 @@ import os
 
 from lib import datasetManager
 import modelGenerator
+from keras.callbacks import ModelCheckpoint
 
 parser = argparse.ArgumentParser()
 
@@ -14,6 +15,8 @@ parser.add_argument("--source", help="Source path. Default is ./Data/Slices/", d
 parser.add_argument("--dataset", help="Dataset path. Default is ./Data/Dataset/", default='./Data/Dataset/')
 parser.add_argument("--nb-per-class", help="Number of images per class. Default is 200", default='200')
 parser.add_argument("--img-size", help="Images dimensions. Default 128", default='128')
+parser.add_argument("--nb-epochs", help="Number of epochs to be executed. Default 20", default='20')
+parser.add_argument("--batch-size", help="Size of each epoch, tweak this value if you have memory issues. Default 128", default='128')
 
 args = parser.parse_args()
 
@@ -23,6 +26,8 @@ source_path = args.source
 datasetPath = args.dataset
 nb_per_class = args.nb_per_class
 img_size = args.img_size
+nb_epochs = args.nb_epochs
+batch_size = args.batch_size
 
 print("---- Configuration ----")
 print("Validation ratio: {}".format(val_ratio))
@@ -31,8 +36,11 @@ print("Source images path: {}".format(source_path))
 print("Dataset path: {}".format(datasetPath))
 print("Number of images per class: {}".format(nb_per_class))
 print("Images dimensions: {}".format(img_size))
+print("\n--- Training setup ---")
+print("Number of epochs: {}".format(nb_epochs))
+print("Size of batch: {}".format(batch_size))
 
-#train_X, train_y, validation_X, validation_y = datasetManager.get_dataset(source_path, datasetPath, nb_per_class, img_size, val_ratio, test_ratio, "train")
+train_X, train_y, validation_X, validation_y = datasetManager.get_dataset(source_path, datasetPath, nb_per_class, img_size, val_ratio, test_ratio, "train")
 
 classes = os.listdir(source_path)
 nb_classes = len(classes)
@@ -41,9 +49,22 @@ nb_classes = len(classes)
 model = modelGenerator.create_model(int(nb_classes), int(img_size))
 model.summary()
 
+
+
+# checkpoint
+filepath="weights-improvement-{epoch:02d}-{val_acc:.2f}.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
+callbacks_list = [checkpoint]
+
 print("Training the model...")
-model.fit(train_X, train_y, n_epoch=nbEpoch, batch_size=batchSize, shuffle=True,
-              validation_set=(validation_X, validation_y), snapshot_step=100, show_metric=True, run_id=run_id)
+model.fit(train_X, train_y,
+          batch_size=batch_size,
+          epochs=nb_epochs,
+          shuffle=True,
+          validation_set=(validation_X, validation_y),
+          #validation_split=0.33,
+          callbacks=callbacks_list)
+
 print("Model trained!")
 
 
