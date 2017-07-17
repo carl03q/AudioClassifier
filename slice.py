@@ -8,7 +8,7 @@ parser.add_argument("--slice-dim", help="Slice size. Default at 128", default='1
 parser.add_argument("--raw-dir", help="Raw mp3's files directory. Default ./Data/Raw/", default='./Data/Raw/')
 parser.add_argument("--spec-dir", help="Spectrogram's files directory. Default ./Data/Spectrograms/",
                     default='./Data/Spectrograms/')
-parser.add_argument("--slices-dir", help="Slice's files directory. Default ./Data/Slices", default='./Data/Slices')
+parser.add_argument("--slices-dir", help="Slice's files directory. Default ./Data/Slices/", default='./Data/Slices/')
 
 args = parser.parse_args()
 
