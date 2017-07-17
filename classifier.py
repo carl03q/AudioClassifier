@@ -46,15 +46,19 @@ input_size = 128
 
 
 tmp_dir = "./tmp/"
-shutil.rmtree(tmp_dir)
-os.makedirs(tmp_dir)
+#if os.path.isdir(tmp_dir):
+#   shutil.rmtree(tmp_dir)
+
+os.makedirs(tmp_dir, exist_ok=True)
 raw_dir = tmp_dir+'Raw/'
 spec_dir = tmp_dir+'Spectrograms/'
 img_dir = tmp_dir+'Slices/'
 
-os.makedirs(raw_dir)
-os.makedirs(spec_dir)
-os.makedirs(img_dir)
+os.makedirs(raw_dir, exist_ok=True)
+os.makedirs(spec_dir, exist_ok=True)
+os.makedirs(img_dir, exist_ok=True)
+
+shutil.copy2(audio_name, raw_dir)
 
 # Convert audio to spectrogram
 audio2Image.convert_to_spectrogram(raw_dir, spec_dir)
@@ -73,4 +77,4 @@ predictions = []
     Luego clacula promedio
 '''
 
-shutil.rmtree(tmp_dir)
+#shutil.rmtree(tmp_dir)
