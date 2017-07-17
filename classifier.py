@@ -48,9 +48,13 @@ input_size = 128
 tmp_dir = "./tmp/"
 shutil.rmtree(tmp_dir)
 os.makedirs(tmp_dir)
-raw_dir = os.makedirs(tmp_dir+'Raw/')
-spec_dir = os.makedirs(tmp_dir+'Spectrograms/')
-img_dir = os.makedirs(tmp_dir+'Slices/')
+raw_dir = tmp_dir+'Raw/'
+spec_dir = tmp_dir+'Spectrograms/'
+img_dir = tmp_dir+'Slices/'
+
+os.makedirs(raw_dir)
+os.makedirs(spec_dir)
+os.makedirs(img_dir)
 
 # Convert audio to spectrogram
 audio2Image.convert_to_spectrogram(raw_dir, spec_dir)
