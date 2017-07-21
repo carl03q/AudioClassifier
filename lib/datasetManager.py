@@ -26,14 +26,15 @@ def get_dataset(slices_path, dataset_path, nb_per_class, slice_size, val_ratio, 
 
 
 def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio, test_ratio):
-    x = []
-    y = []
+    data = []
 
     genres = os.listdir(input_path)
+
     for i, genre in enumerate(genres):
         genre_dir = input_path + genre +'/'
         files = os.listdir(genre_dir)
         shuffle(files)
+        files = files[:nb_per_class]
         print("--------------------------------------------------------------------")
         for file in files:
             file_dir = genre_dir + file
@@ -42,12 +43,15 @@ def create_dataset(input_path, output_path, nb_per_class, slice_size, val_ratio,
             imr = im.resize((int(slice_size), int(slice_size)), resample=Image.ANTIALIAS)
             imgData = np.asarray(imr, dtype=np.uint8).reshape(int(slice_size), int(slice_size), 1)
             imgData = imgData / 255.
-            x.append(imgData)
+
 
             #Label
             label = [0 for genre in range(len(genres))]
             label[i] = 1
-            y.append(label)
+            data.append((imgData, label))
+
+    shuffle(data)
+    x, y = zip(*data)
 
     # Split data
     validation_nb = int(len(x) * val_ratio)
